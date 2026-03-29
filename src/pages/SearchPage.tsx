@@ -16,8 +16,9 @@ import {
   emptyRecord,
 } from "@/data/mockData";
 import type { ExamRecord, SearchFilters } from "@/types/exam";
-import CreateSeasonModal from "@/components/season/CreatSeasonModal";
+import CreateSeasonModal from "@/components/season/CreateSeasonModal";
 import ExamFilterBar from "@/components/common/ExamFilterBar";
+import { downloadFile } from "@/utils/downloadFile";
 
 type SeasonOption = {
   label: string;
@@ -127,22 +128,6 @@ export default function SearchPage() {
     }));
   };
 
-  const handleDownload = (fileName: string) => {
-    if (!fileName) return;
-
-    const blob = new Blob([`${fileName} ダウンロード`], {
-      type: "text/plain",
-    });
-    const url = window.URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = fileName;
-    link.click();
-
-    window.URL.revokeObjectURL(url);
-  };
-
   const handleCreateSeason = ({ seasonLabel }: CreateSeasonPayload) => {
     const exists = seasonOptionList.some(
       (option) => option.value === seasonLabel,
@@ -227,13 +212,13 @@ export default function SearchPage() {
                 <Field label="プリント1" value={currentRecord.print1Name} />
                 <FileBox
                   fileName={currentRecord.print1File}
-                  onDownload={() => handleDownload(currentRecord.print1File)}
+                  onDownload={() => downloadFile(currentRecord.print1File)}
                 />
 
                 <Field label="プリント2" value={currentRecord.print2Name} />
                 <FileBox
                   fileName={currentRecord.print2File}
-                  onDownload={() => handleDownload(currentRecord.print2File)}
+                  onDownload={() => downloadFile(currentRecord.print2File)}
                 />
               </div>
 
@@ -241,7 +226,7 @@ export default function SearchPage() {
                 <Field label="実際試験紙" value={currentRecord.examPaperName} />
                 <FileBox
                   fileName={currentRecord.examPaperFile}
-                  onDownload={() => handleDownload(currentRecord.examPaperFile)}
+                  onDownload={() => downloadFile(currentRecord.examPaperFile)}
                 />
 
                 <Field
@@ -250,9 +235,7 @@ export default function SearchPage() {
                 />
                 <FileBox
                   fileName={currentRecord.answerSheetFile}
-                  onDownload={() =>
-                    handleDownload(currentRecord.answerSheetFile)
-                  }
+                  onDownload={() => downloadFile(currentRecord.answerSheetFile)}
                 />
               </div>
             </div>
