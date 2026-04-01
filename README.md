@@ -39,7 +39,7 @@ npm run lint
 - `/login`: Login placeholder page
 - `/search`: Exam search + record details + edit flow (main UI)
 - `/archive`: Archive list view with expandable details (read-only from mock data)
-- `/materials`: Materials placeholder page
+- `/materials`: Materials generation UI (study packet preview / calendar preview)
 - `/settings`: Settings page (school list CRUD + fixed subjects panel)
 
 Router: `src/app/router/index.tsx`  
@@ -73,10 +73,27 @@ Main file: `src/pages/ArchivePage.tsx`
 
 Main file: `src/pages/SettingsPage.tsx`
 
+### Materials (`/materials`)
+
+- Mode switcher:
+  - Study packet: select exam papers/prints and preview grouped output
+  - Calendar: monthly calendar preview of exam schedules
+- Filters: school/grade/subject (UI-first)
+- Selection list: select all / clear visible + checkbox selection
+- Preview:
+  - Study packet: grouped by exam record, removable items, output buttons (UI-only)
+  - Calendar: color-coded chips by school, monthly grid preview (UI-only)
+
+Main file: `src/pages/MaterialsPage.tsx`  
+Related: `src/components/materials/**`, `src/data/materials.ts`, `src/types/materials.ts`, `src/utils/materials.ts`
+
 ## Data & types (UI-first)
 
 - Mock data and select options: `src/data/mockData.ts`
 - Types: `src/types/exam.ts`
+- Materials UI config: `src/data/materials.ts`
+- Materials types: `src/types/materials.ts`
+- Materials helpers (build/filter/group): `src/utils/materials.ts`
 - “Download” behavior is a placeholder that downloads a text blob:
   - `src/utils/downloadFile.ts`
 
@@ -90,12 +107,13 @@ src/
   components/
     common/          # Reusable UI components (SelectField, SectionCard, etc.)
     layout/          # Sidebar components
+    materials/       # Materials UI (sidebar, selection list, previews, etc.)
     season/          # Season-related UI (modal)
   data/              # UI mock data + select options
   pages/             # Route pages
   styles/            # CSS tokens
   types/             # Shared TS types
-  utils/             # Small utilities (UI placeholders)
+  utils/             # Small utilities (UI helpers / placeholders)
 ```
 
 ## UI conventions (for contributors / other AIs)
@@ -120,9 +138,13 @@ Suggested UI-first tasks (safe to do before refactoring):
 - Archive page
   - Add clear “expanded” affordance and keyboard/accessibility improvements
   - Improve filtering UX (e.g. show active filter chips)
-- Login / Materials pages
-  - Replace placeholders with real UI screens
+- Login page
+  - Replace placeholder with real UI screen
   - Align typography/spacing with existing pages
+- Materials page
+  - Wire “output” actions (currently UI-only)
+  - Add season filter (optional) and improve empty/disabled states
+  - Calendar: support month navigation + dynamic day grid (currently fixed month demo)
 - Global UI polish
   - Add top-level responsive behavior for smaller screens (Sidebar handling)
   - Unify button styles (primary/secondary/danger) into small reusable components
@@ -132,6 +154,7 @@ Suggested UI-first tasks (safe to do before refactoring):
 - Data persistence: none (local state + `mockData`)
 - File handling: UI-only (stores selected file name; “download” is a placeholder blob)
 - Shared state between pages: not implemented (e.g. `/search` edits don’t reflect in `/archive`)
+- Materials output: UI-only (preview and buttons exist; no real export yet)
 - i18n: UI strings may be mixed across languages; will be standardized later
 
 ## Notes for AI handoff
