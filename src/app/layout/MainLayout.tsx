@@ -1,11 +1,13 @@
 import { Outlet, useLocation, useNavigate } from "react-router";
 import Sidebar from "@/components/layout/Sidebar";
 
-type PageType = "search" | "archive" | "materials" | "settings";
+type PageType = "search" | "archive" | "materials" | "analysis" | "settings";
 
 function getPageFromPath(pathname: string): PageType {
+  if (pathname.startsWith("/search")) return "search";
   if (pathname.startsWith("/archive")) return "archive";
   if (pathname.startsWith("/materials")) return "materials";
+  if (pathname.startsWith("/analysis")) return "analysis";
   if (pathname.startsWith("/settings")) return "settings";
   return "search";
 }
@@ -21,6 +23,7 @@ export default function MainLayout() {
     if (page === "archive") navigate("/archive");
     if (page === "materials") navigate("/materials");
     if (page === "settings") navigate("/settings");
+    if (page === "analysis") navigate("/analysis");
   };
 
   return (

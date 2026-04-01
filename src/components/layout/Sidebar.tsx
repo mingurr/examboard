@@ -1,8 +1,10 @@
 import SidebarButton from "@/components/layout/SidebarButton";
 
 type SidebarProps = {
-  page: "search" | "archive" | "materials" | "settings";
-  onChangePage: (page: "search" | "archive" | "materials" | "settings") => void;
+  page: "search" | "archive" | "materials" | "analysis" | "settings";
+  onChangePage: (
+    page: "search" | "archive" | "materials" | "analysis" | "settings",
+  ) => void;
 };
 
 export default function Sidebar({ page, onChangePage }: SidebarProps) {
@@ -32,6 +34,11 @@ export default function Sidebar({ page, onChangePage }: SidebarProps) {
           label="資料生成"
           active={page === "materials"}
           onClick={() => onChangePage("materials")}
+        />
+        <SidebarButton
+          label="分析"
+          active={page === "analysis"}
+          onClick={() => onChangePage("analysis")}
         />
         <SidebarButton
           label="設定"
