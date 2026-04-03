@@ -116,6 +116,58 @@ src/
   utils/             # Small utilities (UI helpers / placeholders)
 ```
 
+## Reusable components (available now)
+
+These are the basic UI components you can reuse immediately when building new screens.
+
+### `src/components/common/`
+
+- `SectionCard`
+  - Card container with title + optional right-side action slot.
+  - Used across pages for consistent section layout.
+- `SelectField`
+  - Styled `<select>` with placeholder + options.
+  - Use for all dropdown inputs to keep visuals consistent.
+- `ExamFilterBar`
+  - Prebuilt filter row: season/school/grade/subject + right-side action button.
+  - Accepts an optional `seasonActionSlot` (e.g. “+ 新規シーズン” button).
+- `Field`
+  - Simple label/value row (read-only display).
+  - Useful for detail pages and summaries.
+- `FileBox`
+  - File name display + download button (disabled if empty).
+  - Download behavior is currently UI-only (see `src/utils/downloadFile.ts`).
+
+### `src/components/layout/`
+
+- `Sidebar`
+  - Left navigation container (desktop: `lg` and up).
+- `SidebarButton`
+  - Styled nav button with active state.
+
+### `src/components/season/`
+
+- `CreateSeasonModal`
+  - Modal UI for creating a “season label” (year/term/exam type) and selecting schools.
+  - Currently used in `/search` as UI-first flow.
+
+### `src/components/materials/`
+
+- `MaterialsModeSwitcher`
+  - Switch between material modes (`studyPacket` / `calendar`).
+- `MaterialsSidebar`
+  - Left panel: filters + selection controls (mode-dependent).
+- `MaterialsFilter`
+  - Small labeled select used in the materials sidebar.
+- `MaterialsSelectionList`
+  - Checkbox list with “select all visible / clear” controls.
+- `MaterialsStudyPacketPreview`
+  - Preview panel that groups selected items by exam record and allows removing items.
+- `MaterialsCalendarPreview`
+  - Monthly calendar preview UI (currently fixed month demo) with school color legend.
+- `MaterialsButton`
+  - Mode card-style button used by the switcher.
+
 ## UI conventions (for contributors / other AIs)
 
 - **UI-first policy**: prioritize UI completion and consistency over architectural refactors.
